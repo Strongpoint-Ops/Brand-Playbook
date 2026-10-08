@@ -16,7 +16,7 @@ tokens/
   theme-parent.css     strongpointops.com          light ground, steel
   theme-principal.css  principal.strongpointops.com graphite, field olive
   theme-build.css      build.strongpointops.com     cool graphite, safety orange
-  theme-advisory.css   advisors.strongpointops.com  deep ground, field green
+  theme-advisory.css   consult.strongpointops.com  deep ground, field green
   theme-dashboard.css  dashboard.strongpointops.com near-black, cyan (+ data palette)
 site/
   index.html           the playbook — palettes, type, MOTION (six live demos),
