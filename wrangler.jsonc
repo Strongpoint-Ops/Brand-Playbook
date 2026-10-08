@@ -1,0 +1,14 @@
+{
+  // Brand Playbook — brand.strongpointops.com. Static assets only.
+  //
+  // ⚠ "name" MUST match the Worker name in the Cloudflare dashboard or the
+  // build fails. This assumes the Worker took the repo name.
+  //
+  // Deploy command is a DASHBOARD setting: `npx wrangler deploy`.
+  "name": "brand-playbook",
+  "compatibility_date": "2026-10-08",
+  "assets": {
+    "directory": "./site",
+    "html_handling": "auto-trailing-slash"
+  }
+}

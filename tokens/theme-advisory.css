@@ -1,0 +1,25 @@
+/* Strongpoint Advisory — advisors.strongpointops.com. Owner-side advisory,
+   the sister company to Build. Load after strongpoint.css.
+   Fonts: Archivo Narrow 400,500,600,700 / IBM Plex Sans / IBM Plex Mono
+   Signature motion: none yet — this one is deliberately still. */
+:root {
+  --ground:      #0e1316;
+  --surface:     #161c20;
+  --surface-2:   #1d2529;
+  --line:        #28312f;
+  --line-bright: #3a4542;
+
+  --fg:          #e7e9ea;   /* 15.35:1 on --ground */
+  --fg-dim:      #9aa3a5;
+  --fg-faint:    #6c7578;
+
+  /* Hue 99. Measured: 6.92:1 on this ground, and 65 degrees minimum
+     separation from parent 210, principal 34, build 23, dashboard 186. */
+  --accent:      #7fa968;
+  --accent-lo:   #4b6640;
+  --accent-hi:   #9bc084;
+
+  --display: "Archivo Narrow", "Arial Narrow", system-ui, sans-serif;
+  --body:    "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+  --mono:    "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}

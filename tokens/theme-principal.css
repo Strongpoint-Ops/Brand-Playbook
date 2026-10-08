@@ -1,0 +1,25 @@
+/* Strongpoint Principal — the founder. Warm, quiet, on the deepest graphite.
+   Load after strongpoint.css.
+   Fonts: Saira Condensed 500,600,700 / IBM Plex Sans 400,500,600 / IBM Plex Mono
+   Signature motion: the rotating instrument ring. */
+:root {
+  --ground:      #0f1214;
+  --surface:     #171b1f;
+  --surface-2:   #1f252a;
+  --line:        #2b3238;
+  --line-bright: #3d464e;
+
+  --fg:          #e7e9ea;   /* 15.44:1 on --ground */
+  --fg-dim:      #9aa3a9;
+  --fg-faint:    #6b757c;
+
+  /* Field olive. Moved off brass (#c3893c, hue 34) because that sat only
+     12 degrees from Build's orange — the two sites read as one. */
+  --accent:      #8a9c6f;   /* 6.33:1 on --ground, hue 84 */
+  --accent-lo:   #56613f;
+  --accent-hi:   #a3b184;
+
+  --display: "Saira Condensed", "Arial Narrow", system-ui, sans-serif;
+  --body:    "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+  --mono:    "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}

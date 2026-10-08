@@ -1,0 +1,23 @@
+/* Strongpoint Build — the contractor. Cooler ground, hi-vis accent.
+   Load after strongpoint.css.
+   Fonts: Oswald 400,500,600 / IBM Plex Sans 400,500,600 / IBM Plex Mono
+   Signature motion: dashed flow along the service-map links. */
+:root {
+  --ground:      #10151a;
+  --surface:     #181e24;
+  --surface-2:   #202830;
+  --line:        #2a333b;
+  --line-bright: #3c4751;
+
+  --fg:          #e7e9ea;   /* 15.07:1 on --ground */
+  --fg-dim:      #9aa3a9;
+  --fg-faint:    #6b757c;
+
+  --accent:      #e07a3c;   /* 6.13:1 on --ground, hue 23 — safety orange */
+  --accent-lo:   #8a4718;
+  --accent-hi:   #ef8c4f;
+
+  --display: "Oswald", "Arial Narrow", system-ui, sans-serif;
+  --body:    "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+  --mono:    "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}

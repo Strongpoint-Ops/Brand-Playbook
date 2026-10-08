@@ -1,0 +1,39 @@
+/* Strongpoint Dashboard (AIOS) — the console. The one property that is a
+   product rather than a page, and the only one allowed a glow.
+   Load after strongpoint.css.
+   Fonts: Rajdhani 400,500,600,700 / Share Tech Mono
+   Signature motion: the point-cloud brain and its orbiting swarm.
+
+   NOTE: this theme legitimately carries a secondary palette the marketing
+   sites do not get. A console has to encode state — a connector's status, an
+   agent's health, a stream's type — and one accent cannot carry six meanings.
+   Those extra hues are DATA COLOURS, never brand colours: they may appear in
+   a chart, a badge or a graph node, and never in a headline or a button. */
+:root {
+  --ground:      #04070b;
+  --surface:     #0a1018;
+  --surface-2:   #0b1219;
+  --line:        rgba(141,211,255,0.16);
+  --line-bright: rgba(141,211,255,0.32);
+
+  --fg:          #dce9f4;   /* 16.34:1 on --ground */
+  --fg-dim:      rgba(220,233,244,0.55);
+  --fg-faint:    rgba(220,233,244,0.35);
+
+  --accent:      #7df3ff;   /* 15.51:1 on --ground, hue 186 */
+  --accent-lo:   #2f6d76;
+  --accent-hi:   #a8f7ff;
+
+  --display: "Rajdhani", system-ui, sans-serif;
+  --body:    "Rajdhani", system-ui, sans-serif;
+  --mono:    "Share Tech Mono", ui-monospace, monospace;
+
+  /* data colours — state only, never brand */
+  --data-blue:   #8fd3ff;
+  --data-green:  #6fd6b0;
+  --data-purple: #c58cf0;
+  --data-amber:  #e2a35c;
+  --data-red:    #ff8a8a;
+  --data-yellow: #f4d35e;
+  --glow:        0 0 12px rgba(125,243,255,0.35);
+}

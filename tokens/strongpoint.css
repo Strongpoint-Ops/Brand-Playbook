@@ -1,0 +1,104 @@
+/* ============================================================================
+   Strongpoint — shared design tokens
+   ----------------------------------------------------------------------------
+   Load this FIRST, then exactly one theme-*.css after it.
+
+       <link rel="stylesheet" href="tokens/strongpoint.css">
+       <link rel="stylesheet" href="tokens/theme-build.css">
+
+   Every value a subsidiary is allowed to change is a variable defined here with
+   a neutral default and overridden in the theme file. Everything NOT a variable
+   is an invariant: it is the same on every Strongpoint property, and changing
+   it per-site is how a group of companies stops looking like a group.
+
+   Sites in this repo family are plain HTML/CSS/JS with no build step, so these
+   are real custom properties resolved by the browser — not a preprocessor.
+   ========================================================================= */
+
+:root {
+  /* ---- VARIABLE: the ground and its surfaces -----------------------------
+     One company, one ground. Everything else is derived from it.            */
+  --ground:        #101418;
+  --surface:       #181e24;
+  --surface-2:     #202830;
+  --line:          #2a333b;
+  --line-bright:   #3c4751;
+
+  /* ---- VARIABLE: text on that ground ------------------------------------
+     Body text must clear 12:1 against --ground. Measured, not assumed.      */
+  --fg:            #e7e9ea;
+  --fg-dim:        #9aa3a9;
+  --fg-faint:      #6b757c;
+
+  /* ---- VARIABLE: one accent per company ---------------------------------
+     Exactly one hue. A second accent is how a brand turns into a swatch
+     book. Requirements, all three:
+       - >= 4.5:1 against --ground  (WCAG AA, and it is used for link text)
+       - >= 60 degrees of hue from every sibling company's accent
+       - not the family colour below                                        */
+  --accent:        #6f8fa8;
+  --accent-lo:     #47606f;   /* the accent at ~55% value — borders, rules   */
+  --accent-hi:     #8fb0c9;   /* the accent lifted — hover only              */
+
+  /* ---- INVARIANT: the family colour -------------------------------------
+     Steel blue means "this link leaves the property you are on". It is the
+     ONE colour shared by all four sites and it is reserved for that job.
+     Never use it as a company accent, never use it for an internal link.   */
+  --family:        #6f8fa8;
+  --family-hi:     #8fb0c9;
+
+  /* ---- INVARIANT: status ------------------------------------------------ */
+  --ok:            #7f9b6a;
+  --warn:          #d8a340;
+  --bad:           #cc6a5c;
+
+  /* ---- VARIABLE: typefaces ----------------------------------------------
+     Two slots, and the rule for each:
+       --display  a CONDENSED or semi-condensed sans. Headlines only.
+       --body     a neutral humanist or grotesque sans at 400/500/600.
+       --mono     a mono for eyebrows, labels, data and figures.
+     The condensed display face is the single strongest family signal. A
+     property that drops it stops reading as Strongpoint.                    */
+  --display: "Saira Condensed", "Arial Narrow", system-ui, sans-serif;
+  --body:    "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+  --mono:    "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  /* ---- INVARIANT: type scale --------------------------------------------
+     Fluid, clamped, and the same ratios everywhere.                         */
+  --t-h1:      clamp(38px, 5.4vw, 64px);
+  --t-h2:      clamp(28px, 3.4vw, 40px);
+  --t-h3:      22px;
+  --t-body:    16px;
+  --t-small:   13.5px;
+  --t-eyebrow: 11px;
+  --lh-head:   1.05;
+  --lh-body:   1.6;
+  --track-head:   .005em;
+  --track-eyebrow: .18em;
+  --track-btn:     .06em;
+
+  /* ---- INVARIANT: layout ------------------------------------------------ */
+  --maxw:      1180px;
+  --gutter:    24px;
+  --band:      76px;        /* vertical padding of a full-width section      */
+  --bp-wide:   980px;       /* two columns collapse to one below this        */
+  --bp-narrow: 760px;       /* nav collapses, grids stack below this         */
+
+  /* ---- INVARIANT: edges -------------------------------------------------
+     Hairlines only. This system has no rounded corners and no drop shadows
+     on a dark ground; depth comes from the 1px rule and the surface step.   */
+  --hair:      1px;
+  --radius:    0;
+
+  /* ---- VARIABLE: motion -------------------------------------------------
+     A signature motion per property is allowed and encouraged. What is not
+     allowed is motion that ignores the reduced-motion preference.           */
+  --dur-fast:  .15s;
+  --dur:       .22s;
+  --dur-slow:  .4s;
+  --ease:      cubic-bezier(.2,.6,.3,1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --dur-fast: 0s; --dur: 0s; --dur-slow: 0s; }
+}

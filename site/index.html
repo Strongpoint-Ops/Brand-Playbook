@@ -1,0 +1,873 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Strongpoint — Design Playbook</title>
+<meta name="description" content="The shared design system for Strongpoint and its subsidiaries: what every property holds in common, what each one may change, and the measurements that decide.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@500;600;700&family=Oswald:wght@400;500;600&family=Archivo+Narrow:wght@400;500;600;700&family=Barlow+Condensed:wght@400;600&family=Barlow:wght@400;500;700&family=Rajdhani:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+/* The playbook is itself built from the system it documents. */
+:root{
+  --ground:#0f1214; --surface:#171b1f; --surface-2:#1f252a;
+  --line:#2b3238; --line-bright:#3d464e;
+  --fg:#e7e9ea; --fg-dim:#9aa3a9; --fg-faint:#6b757c;
+  --accent:#8a9c6f; --accent-lo:#56613f; --accent-hi:#a3b184;
+  --family:#6f8fa8; --ok:#7f9b6a; --warn:#d8a340; --bad:#cc6a5c;
+  --display:"Saira Condensed","Arial Narrow",system-ui,sans-serif;
+  --body:"IBM Plex Sans",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --maxw:1180px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:80px}
+body{margin:0;background:var(--ground);color:var(--fg);font-family:var(--body);
+  font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:var(--display);font-weight:600;line-height:1.05;margin:0}
+a{color:var(--accent)}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--accent);margin:0 0 14px}
+header{position:sticky;top:0;z-index:40;background:rgba(15,18,20,.92);
+  border-bottom:1px solid var(--line);backdrop-filter:blur(10px)}
+.hdr{display:flex;align-items:center;gap:22px;height:60px;flex-wrap:wrap}
+.mark{display:flex;align-items:center;gap:11px;text-decoration:none;color:inherit;margin-right:auto}
+.mark .glyph{width:28px;height:28px;border:1px solid var(--accent);display:grid;place-items:center;
+  font-family:var(--display);font-size:14px;color:var(--accent);position:relative;flex:none}
+.mark .glyph::after{content:"";position:absolute;inset:3px;border:1px solid var(--accent-lo)}
+.mark .wm{font-family:var(--display);font-size:18px;letter-spacing:.06em;text-transform:uppercase}
+.mark .wm small{display:block;font-family:var(--mono);font-size:9px;letter-spacing:.15em;
+  color:var(--fg-faint);text-transform:uppercase;margin-top:1px}
+nav{display:flex;gap:20px;flex-wrap:wrap}
+nav a{font-size:13px;color:var(--fg-dim);text-decoration:none;border-bottom:1px solid transparent;padding:3px 0}
+nav a:hover{color:var(--fg);border-bottom-color:var(--accent)}
+.band{border-top:1px solid var(--line);padding:68px 0}
+.band.tint{background:#13171a}
+.sec-head{max-width:760px;margin:0 0 36px}
+.sec-head h2{font-size:clamp(26px,3.2vw,38px)}
+.sec-head p{color:var(--fg-dim);margin:14px 0 0}
+h3{font-size:21px;margin:0 0 10px}
+p{margin:0 0 14px}
+code{font-family:var(--mono);font-size:.88em;background:var(--surface-2);padding:2px 6px;
+  border:1px solid var(--line);color:var(--accent-hi)}
+pre{font-family:var(--mono);font-size:12.5px;background:#0b0f12;border:1px solid var(--line);
+  padding:16px 18px;overflow-x:auto;color:var(--fg-dim);line-height:1.6}
+pre b{color:var(--accent-hi);font-weight:400}
+table{width:100%;border-collapse:collapse;font-size:14px;margin:0 0 8px}
+th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--fg-faint);font-weight:400;white-space:nowrap}
+td code{background:none;border:0;padding:0}
+.scroller{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.pill{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  padding:3px 8px;border:1px solid currentColor;white-space:nowrap;display:inline-block}
+.pill.ok{color:var(--ok)} .pill.warn{color:var(--warn)} .pill.bad{color:var(--bad)}
+.pill.dim{color:var(--fg-faint)}
+
+/* property cards, each rendered in its own theme */
+.props{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.prop{border:1px solid var(--pl);background:var(--pg);padding:24px 22px;position:relative}
+.prop .corner{position:absolute;width:10px;height:10px;color:var(--pl)}
+.prop .corner::before,.prop .corner::after{content:"";position:absolute;background:currentColor}
+.prop .corner::before{width:10px;height:1px}.prop .corner::after{width:1px;height:10px}
+.prop .corner.tl{top:-1px;left:-1px}.prop .corner.br{bottom:-1px;right:-1px}
+.prop .corner.br::before{bottom:0;right:0}.prop .corner.br::after{bottom:0;right:0}
+.prop .eb{font-family:var(--pm);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--pa);margin:0 0 10px}
+.prop h3{font-family:var(--pd);color:var(--pf);font-size:27px;letter-spacing:.01em;margin:0 0 6px}
+.prop .host{font-family:var(--pm);font-size:11px;color:var(--pfd);margin:0 0 16px;word-break:break-all}
+.prop .spec{font-family:var(--pb);color:var(--pfd);font-size:13.5px;margin:0 0 16px;line-height:1.5}
+.prop .btn{display:inline-block;font-family:var(--pd);font-size:13px;letter-spacing:.06em;
+  text-transform:uppercase;padding:8px 14px;background:var(--pa);color:var(--pg);text-decoration:none}
+.prop .swatches{display:flex;gap:0;margin:0 0 16px;border:1px solid var(--pl)}
+.prop .swatches i{flex:1;height:26px;display:block}
+.prop .meta{font-family:var(--pm);font-size:10.5px;color:var(--pfd);letter-spacing:.06em;line-height:1.9}
+.prop .meta b{color:var(--pf);font-weight:400}
+
+.t-parent{--pg:#f2f2f3;--pf:#1d1f20;--pfd:#5d5d60;--pl:color-mix(in srgb,#1d1f20 20%,transparent);
+  --pa:#4c7094;--pd:"Barlow Condensed",sans-serif;--pb:"Barlow",sans-serif;--pm:"IBM Plex Mono",monospace}
+.t-principal{--pg:#0f1214;--pf:#e7e9ea;--pfd:#9aa3a9;--pl:#2b3238;--pa:#8a9c6f;
+  --pd:"Saira Condensed",sans-serif;--pb:"IBM Plex Sans",sans-serif;--pm:"IBM Plex Mono",monospace}
+.t-build{--pg:#10151a;--pf:#e7e9ea;--pfd:#9aa3a9;--pl:#2a333b;--pa:#e07a3c;
+  --pd:"Oswald",sans-serif;--pb:"IBM Plex Sans",sans-serif;--pm:"IBM Plex Mono",monospace}
+.t-advisory{--pg:#0e1316;--pf:#e7e9ea;--pfd:#9aa3a5;--pl:#28312f;--pa:#7fa968;
+  --pd:"Archivo Narrow",sans-serif;--pb:"IBM Plex Sans",sans-serif;--pm:"IBM Plex Mono",monospace}
+.t-dashboard{--pg:#04070b;--pf:#dce9f4;--pfd:rgba(220,233,244,.55);--pl:rgba(141,211,255,.22);
+  --pa:#7df3ff;--pd:"Rajdhani",sans-serif;--pb:"Rajdhani",sans-serif;--pm:"Share Tech Mono",monospace}
+
+/* type specimens */
+.spec-row{border-bottom:1px solid var(--line);padding:22px 0;display:grid;
+  grid-template-columns:150px 1fr;gap:24px;align-items:baseline}
+.spec-row .lab{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-faint)}
+.spec-row .lab span{display:block;color:var(--accent);margin-top:4px;text-transform:none;letter-spacing:0}
+
+/* invariant / variable split */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line)}
+.split > div{background:var(--ground);padding:26px 24px}
+.split ul{margin:14px 0 0;padding:0 0 0 18px}
+.split li{font-size:14px;color:var(--fg-dim);margin:0 0 10px}
+.split li b{color:var(--fg);font-weight:600}
+.split .hd{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase}
+.split .lock .hd{color:var(--bad)} .split .free .hd{color:var(--ok)}
+
+.rules{margin:0;padding:0;list-style:none;border-top:1px solid var(--line)}
+.rules li{border-bottom:1px solid var(--line);padding:16px 0;display:flex;gap:16px;align-items:baseline}
+.rules .n{font-family:var(--mono);font-size:11px;color:var(--accent);flex:none;width:26px}
+.rules .tx{font-size:14.5px;color:var(--fg-dim)}
+.rules .tx b{color:var(--fg);font-weight:600;display:block;margin-bottom:3px}
+footer{border-top:1px solid var(--line);padding:30px 0 44px;font-size:13px;color:var(--fg-faint)}
+
+@media (max-width:980px){ .props,.split{grid-template-columns:1fr} }
+@media (max-width:760px){
+  nav{display:none}
+  .spec-row{grid-template-columns:1fr;gap:10px}
+  .band{padding:52px 0}
+}
+
+/* ---- motion + component demos ---- */
+.demos{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.demo{border:1px solid var(--line);background:#12171a;padding:0;overflow:hidden}
+.demo .stage{height:150px;display:grid;place-items:center;background:
+  radial-gradient(420px 220px at 50% 50%,#171d21,#0f1416 72%);border-bottom:1px solid var(--line)}
+.demo .meta{padding:16px 18px 18px}
+.demo h4{font-family:var(--display);font-size:18px;margin:0 0 6px}
+.demo p{font-size:13.5px;color:var(--fg-dim);margin:0 0 8px;line-height:1.5}
+.demo code{font-size:11.5px}
+.demo .why{font-size:12.5px;color:var(--fg-faint);border-top:1px solid var(--line);padding-top:10px;margin:10px 0 0}
+
+/* 1. dashed flow — Build's signature */
+.d-flow{width:200px;height:2px;background:none;position:relative}
+.d-flow svg{overflow:visible}
+.flowline{stroke:var(--accent);stroke-width:1.6;stroke-dasharray:3 9;animation:flow 2.6s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-24}}
+
+/* 2. rotating instrument ring — Principal's signature. SMIL, about 0 0. */
+.d-ring{width:120px;height:120px}
+
+/* 3. rim pulse — a node that wants attention without blinking */
+.d-pulse circle.core{fill:var(--accent)}
+.d-pulse circle.halo{fill:none;stroke:var(--accent);opacity:.6;
+  animation:halo 2.8s cubic-bezier(.3,.7,.4,1) infinite}
+@keyframes halo{0%{r:9;opacity:.55}70%{r:30;opacity:0}100%{r:30;opacity:0}}
+
+/* 4. reveal on scroll — the only entrance animation in the system */
+.d-reveal span{display:block;height:9px;background:var(--line-bright);margin:0 0 8px;
+  transform-origin:left;animation:reveal .7s var(--ease,cubic-bezier(.2,.6,.3,1)) both}
+.d-reveal span:nth-child(1){width:150px;animation-delay:0s}
+.d-reveal span:nth-child(2){width:110px;animation-delay:.08s}
+.d-reveal span:nth-child(3){width:170px;animation-delay:.16s;background:var(--accent)}
+@keyframes reveal{from{transform:scaleX(0);opacity:0}to{transform:scaleX(1);opacity:1}}
+
+/* 5. hairline underline on hover — every link in the system */
+.d-link a{color:var(--accent);text-decoration:none;font-size:17px;
+  border-bottom:1px solid transparent;transition:border-color .22s var(--ease,ease)}
+.d-link a:hover{border-bottom-color:var(--accent)}
+
+/* 6. dim-the-rest focus — how the maps show a selection */
+.d-dim circle{transition:opacity .25s var(--ease,ease)}
+.d-dim:hover circle{opacity:.16}
+.d-dim:hover circle.on{opacity:1}
+
+@media (prefers-reduced-motion:reduce){
+  .flowline,.d-pulse circle.halo,.d-reveal span{animation:none}
+  .d-reveal span{transform:none;opacity:1}
+}
+
+/* component specimens */
+.comp{border:1px solid var(--line);background:#12171a;padding:22px 22px 24px}
+.comp h4{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--fg-faint);margin:0 0 16px;font-weight:400}
+.comp .note{font-size:12.5px;color:var(--fg-faint);margin:14px 0 0;line-height:1.5}
+.sp-btn{display:inline-flex;align-items:center;font-family:var(--display);font-size:15px;
+  letter-spacing:.06em;text-transform:uppercase;text-decoration:none;padding:10px 18px;
+  border:1px solid var(--accent);color:var(--ground);background:var(--accent)}
+.sp-btn.ghost{background:none;color:var(--accent)}
+.sp-eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+.sp-plate{position:relative;border:1px solid var(--line);padding:18px 20px;margin:4px}
+.sp-plate i{position:absolute;width:11px;height:11px;color:var(--line-bright)}
+.sp-plate i::before,.sp-plate i::after{content:"";position:absolute;background:currentColor}
+.sp-plate i::before{width:11px;height:1px}.sp-plate i::after{width:1px;height:11px}
+.sp-plate i.a{top:-1px;left:-1px}
+.sp-plate i.b{bottom:-1px;right:-1px}.sp-plate i.b::before{bottom:0;right:0}.sp-plate i.b::after{bottom:0;right:0}
+.sp-list{margin:0;padding:0;list-style:none;border-top:1px solid var(--line)}
+.sp-list li{border-bottom:1px solid var(--line);padding:11px 0;display:flex;gap:14px;align-items:baseline;font-size:14px;color:var(--fg-dim)}
+.sp-list .n{font-family:var(--mono);font-size:11px;color:var(--accent);width:22px;flex:none}
+.sp-field label{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--fg-faint);margin:0 0 7px}
+.sp-field input{width:100%;background:#0e1316;border:1px solid var(--line-bright);color:var(--fg);
+  font:inherit;font-size:15px;padding:10px 13px;font-family:var(--body)}
+.sp-field input:focus{outline:1px solid var(--accent);border-color:var(--accent)}
+@media (max-width:760px){ .demos{grid-template-columns:1fr} }
+
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap hdr">
+    <a class="mark" href="#top">
+      <span class="glyph">S</span>
+      <span class="wm">Playbook<small>Strongpoint Design System</small></span>
+    </a>
+    <nav>
+      <a href="#properties">Properties</a>
+      <a href="#colour">Colour</a>
+      <a href="#type">Type</a>
+      <a href="#rules">Rules</a>
+      <a href="#motion">Motion</a>
+      <a href="#components">Components</a>
+      <a href="#audit">Audit</a>
+      <a href="#use">Use it</a>
+    </nav>
+  </div>
+</header>
+
+<section class="band" id="top" style="border-top:0;padding-top:58px">
+  <div class="wrap">
+    <p class="eyebrow">Strongpoint &middot; Design Playbook</p>
+    <h1 style="font-size:clamp(36px,5.2vw,60px);max-width:17ch">
+      Four companies that should look related, not identical.
+    </h1>
+    <p style="color:var(--fg-dim);font-size:18px;max-width:680px;margin-top:20px">
+      Strongpoint runs separate operating companies on separate hosts. A visitor who lands on
+      one and follows a link to another should recognise the family immediately &mdash; and
+      should never be confused about which company they are dealing with. That is the whole
+      job of this document, and both halves of it matter equally.
+    </p>
+    <p style="color:var(--fg-faint);font-size:14px;max-width:680px">
+      Every number here was measured against the live stylesheets, not copied from a brief.
+      Where a property currently breaks a rule, it says so.
+    </p>
+  </div>
+</section>
+
+<section class="band tint" id="properties">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">The properties</p>
+      <h2>One ground, one accent, one condensed face each.</h2>
+      <p>Each card below is rendered in its own theme — this is not a description of the
+         palettes, it is the palettes.</p>
+    </div>
+    <div class="props">
+
+      <div class="prop t-parent">
+        <span class="corner tl"></span><span class="corner br"></span>
+        <p class="eb">Parent &middot; holding company</p>
+        <h3>Strongpoint</h3>
+        <p class="host">strongpointops.com</p>
+        <p class="spec">The only light-grounded property. The holding company is the one that
+           isn't an operating console, and the ground says so before a word is read.</p>
+        <div class="swatches"><i style="background:#f2f2f3"></i><i style="background:#e9e9ea"></i>
+          <i style="background:#4c7094"></i><i style="background:#2c455d"></i><i style="background:#1d1f20"></i></div>
+        <a class="btn" href="#colour">Book a call</a>
+        <p class="meta"><b>#4c7094</b> accent &middot; hue 210 &middot; 4.63:1<br>
+          <b>Barlow Condensed</b> / Barlow<br>
+          <b>light</b> ground &middot; blueprint corner marks</p>
+      </div>
+
+      <div class="prop t-principal">
+        <span class="corner tl"></span><span class="corner br"></span>
+        <p class="eb">Subsidiary &middot; the founder</p>
+        <h3>Principal</h3>
+        <p class="host">principal.strongpointops.com</p>
+        <p class="spec">Background, credentials, the companies and the market notes. Warm and
+           quiet: it is a person, not a pitch.</p>
+        <div class="swatches"><i style="background:#0f1214"></i><i style="background:#171b1f"></i>
+          <i style="background:#8a9c6f"></i><i style="background:#56613f"></i><i style="background:#e7e9ea"></i></div>
+        <a class="btn" href="#colour">Get in touch</a>
+        <p class="meta"><b>#8a9c6f</b> accent &middot; hue 84 &middot; 6.33:1<br>
+          <b>Saira Condensed</b> / IBM Plex Sans<br>
+          signature motion: <b>rotating instrument ring</b></p>
+      </div>
+
+      <div class="prop t-build">
+        <span class="corner tl"></span><span class="corner br"></span>
+        <p class="eb">Subsidiary &middot; the contractor</p>
+        <h3>Build</h3>
+        <p class="host">build.strongpointops.com</p>
+        <p class="spec">Oregon CCB general contractor. Cooler ground, hi-vis accent — it should
+           feel like a site, not a study.</p>
+        <div class="swatches"><i style="background:#10151a"></i><i style="background:#181e24"></i>
+          <i style="background:#e07a3c"></i><i style="background:#8a4718"></i><i style="background:#e7e9ea"></i></div>
+        <a class="btn" href="#colour">Start a project</a>
+        <p class="meta"><b>#e07a3c</b> accent &middot; hue 23 &middot; 6.13:1<br>
+          <b>Oswald</b> / IBM Plex Sans<br>
+          signature motion: <b>dashed flow along links</b></p>
+      </div>
+
+      <div class="prop t-advisory">
+        <span class="corner tl"></span><span class="corner br"></span>
+        <p class="eb">Subsidiary &middot; owner-side advisory</p>
+        <h3>Advisory</h3>
+        <p class="host">advisors.strongpointops.com</p>
+        <p class="spec">The sister company to Build. Feasibility, capital planning,
+           entitlement and white papers &mdash; deliberately still, because the product is a
+           document, not a demo.</p>
+        <div class="swatches"><i style="background:#0e1316"></i><i style="background:#161c20"></i>
+          <i style="background:#7fa968"></i><i style="background:#4b6640"></i><i style="background:#e7e9ea"></i></div>
+        <a class="btn" href="#colour">Start a conversation</a>
+        <p class="meta"><b>#7fa968</b> accent &middot; hue 99 &middot; 6.92:1<br>
+          <b>Archivo Narrow</b> / IBM Plex Sans<br>
+          signature motion: <b>none &mdash; stillness is the signal</b></p>
+      </div>
+
+      <div class="prop t-dashboard">
+        <span class="corner tl"></span><span class="corner br"></span>
+        <p class="eb">Subsidiary &middot; the console</p>
+        <h3>Dashboard</h3>
+        <p class="host">dashboard.strongpointops.com</p>
+        <p class="spec">The only property that is a product rather than a page — and the only
+           one allowed a glow, a secondary palette and a canvas.</p>
+        <div class="swatches"><i style="background:#04070b"></i><i style="background:#0a1018"></i>
+          <i style="background:#7df3ff"></i><i style="background:#2f6d76"></i><i style="background:#dce9f4"></i></div>
+        <a class="btn" href="#colour">Initialize session</a>
+        <p class="meta"><b>#7df3ff</b> accent &middot; hue 186 &middot; 15.51:1<br>
+          <b>Rajdhani</b> / Share Tech Mono<br>
+          signature motion: <b>point-cloud brain + swarm</b></p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="band" id="colour">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Colour</p>
+      <h2>One accent per company, and it has to earn its place numerically.</h2>
+      <p>An accent is not chosen because it looks nice next to the others. It has to clear
+         three gates, all measurable, before it ships.</p>
+    </div>
+
+    <ul class="rules">
+      <li><span class="n">01</span><span class="tx"><b>At least 4.5:1 against its own ground.</b>
+        The accent is used for link text and small labels, so WCAG AA for normal text is the
+        floor — not the 3:1 large-text allowance.</span></li>
+      <li><span class="n">02</span><span class="tx"><b>At least 60&deg; of hue from every sibling accent.</b>
+        This is the rule that keeps two dark-grounded sites from reading as one. Compare hue
+        against every other company before committing, not just the newest one.</span></li>
+      <li><span class="n">03</span><span class="tx"><b>Never the family colour.</b>
+        Steel blue <code>#6f8fa8</code> is reserved — see below. A company accent that lands
+        near it makes every cross-property link ambiguous.</span></li>
+    </ul>
+
+    <h3 style="margin:38px 0 12px">Measured separation</h3>
+    <div class="scroller">
+      <table>
+        <tr><th>pair</th><th>hue apart</th><th>verdict</th></tr>
+        <tr><td>Build <code>23</code> &harr; Principal <code>84</code></td><td>61&deg;</td><td><span class="pill ok">passes</span></td></tr>
+        <tr><td>Principal <code>84</code> &harr; Dashboard <code>186</code></td><td>102&deg;</td><td><span class="pill ok">passes</span></td></tr>
+        <tr><td>Principal <code>84</code> &harr; Parent <code>210</code></td><td>126&deg;</td><td><span class="pill ok">passes</span></td></tr>
+        <tr><td>Build <code>23</code> &harr; Dashboard <code>186</code></td><td>163&deg;</td><td><span class="pill ok">passes</span></td></tr>
+        <tr><td>Build <code>23</code> &harr; Parent <code>210</code></td><td>173&deg;</td><td><span class="pill ok">passes</span></td></tr>
+        <tr><td>Advisory <code>99</code> &harr; Principal <code>34</code></td><td>65&deg;</td><td><span class="pill ok">passes</span></td></tr>
+        <tr><td>Advisory <code>99</code> &harr; Build <code>23</code></td><td>76&deg;</td><td><span class="pill ok">passes</span></td></tr>
+        <tr><td>Advisory <code>99</code> &harr; Dashboard <code>186</code></td><td>87&deg;</td><td><span class="pill ok">passes</span></td></tr>
+        <tr><td>Advisory <code>99</code> &harr; Parent <code>210</code></td><td>111&deg;</td><td><span class="pill ok">passes</span></td></tr>
+        <tr><td>Principal <code>34</code> &harr; Build <code>23</code></td><td>11&deg;</td>
+            <td><span class="pill bad">unresolved</span></td></tr>
+        <tr><td>Parent <code>210</code> &harr; Dashboard <code>186</code></td><td>24&deg;</td>
+            <td><span class="pill warn">accepted</span></td></tr>
+      </table>
+    </div>
+    <p style="color:var(--fg-faint);font-size:13.5px;max-width:720px">
+      The last pair fails the hue rule and is kept anyway, deliberately: one is a muted steel
+      on a near-white page, the other a saturated cyan on near-black. Ground and saturation
+      separate them where hue does not. That is the only exemption in the system, and it is
+      written down rather than left as an accident.
+    </p>
+
+    <h3 style="margin:38px 0 12px">The family colour</h3>
+    <p style="max-width:720px;color:var(--fg-dim)">
+      <code>#6f8fa8</code> means exactly one thing on every Strongpoint property:
+      <b style="color:var(--fg)">this link leaves the site you are on</b>. It is never a
+      company accent, never an internal link, never decoration. Paired with a
+      <span style="color:var(--family)">&#8599;</span> glyph it is the only visual thread
+      that runs through all four properties &mdash; which is precisely why it cannot be spent
+      on anything else.
+    </p>
+    <p style="max-width:720px">
+      <a href="#properties" style="color:var(--family);text-decoration:none;border-bottom:1px solid color-mix(in srgb,#6f8fa8 45%,transparent)">Build &#8599;</a>
+      &nbsp;&nbsp;
+      <a href="#properties" style="color:var(--family);text-decoration:none;border-bottom:1px solid color-mix(in srgb,#6f8fa8 45%,transparent)">Dashboard &#8599;</a>
+      &nbsp;&nbsp;
+      <a href="#properties" style="color:var(--family);text-decoration:none;border-bottom:1px solid color-mix(in srgb,#6f8fa8 45%,transparent)">Principal &#8599;</a>
+    </p>
+  </div>
+</section>
+
+<section class="band tint" id="type">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Type</p>
+      <h2>A condensed display face is the family signature. Which one is yours to pick.</h2>
+      <p>Three slots per property. The faces vary; the scale, tracking and line-heights
+         do not.</p>
+    </div>
+
+    <div class="spec-row">
+      <div class="lab">Display <span>--display</span></div>
+      <div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:34px;line-height:1.05">Strongpoint &mdash; Barlow Condensed 600</div>
+        <div style="font-family:'Saira Condensed',sans-serif;font-size:34px;line-height:1.05">Principal &mdash; Saira Condensed 600</div>
+        <div style="font-family:'Oswald',sans-serif;font-size:34px;line-height:1.05">Build &mdash; Oswald 600</div>
+        <div style="font-family:'Archivo Narrow',sans-serif;font-size:34px;line-height:1.05">Advisory &mdash; Archivo Narrow 600</div>
+        <div style="font-family:'Rajdhani',sans-serif;font-size:34px;line-height:1.05">Dashboard &mdash; Rajdhani 600</div>
+        <p style="color:var(--fg-faint);font-size:13px;margin-top:12px">
+          Headlines only. Must be condensed or semi-condensed — a normal-width display face
+          breaks the family read faster than any colour change.</p>
+      </div>
+    </div>
+
+    <div class="spec-row">
+      <div class="lab">Body <span>--body</span></div>
+      <div>
+        <div style="font-family:'IBM Plex Sans',sans-serif;font-size:16px;max-width:60ch">
+          IBM Plex Sans — Principal and Build. A neutral humanist sans at 400/500/600, set at
+          16px with a 1.6 line-height and a 60–70 character measure.</div>
+        <div style="font-family:'Barlow',sans-serif;font-size:16px;max-width:60ch;margin-top:8px">
+          Barlow — the parent. Slightly warmer, slightly more geometric, same job.</div>
+        <p style="color:var(--fg-faint);font-size:13px;margin-top:12px">
+          Never the display face. Condensed type at body size is a readability problem, not a
+          brand decision.</p>
+      </div>
+    </div>
+
+    <div class="spec-row">
+      <div class="lab">Mono <span>--mono</span></div>
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)">EYEBROW &middot; SECTION LABEL &middot; 01</div>
+        <div style="font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-top:6px">DASHBOARD &middot; STATUS &middot; 14:22:07</div>
+        <p style="color:var(--fg-faint);font-size:13px;margin-top:12px">
+          Eyebrows, field labels, numbers, timestamps and status. 11px, .18em tracking,
+          uppercase, accent-coloured. This one detail does more family work than the palette.</p>
+      </div>
+    </div>
+
+    <div class="spec-row" style="border-bottom:0">
+      <div class="lab">Scale <span>invariant</span></div>
+      <div class="scroller">
+        <table>
+          <tr><th>token</th><th>value</th><th>use</th></tr>
+          <tr><td><code>--t-h1</code></td><td><code>clamp(38px, 5.4vw, 64px)</code></td><td>one per page</td></tr>
+          <tr><td><code>--t-h2</code></td><td><code>clamp(28px, 3.4vw, 40px)</code></td><td>section heads</td></tr>
+          <tr><td><code>--t-h3</code></td><td><code>22px</code></td><td>card titles</td></tr>
+          <tr><td><code>--t-body</code></td><td><code>16px / 1.6</code></td><td>everything else</td></tr>
+          <tr><td><code>--t-eyebrow</code></td><td><code>11px / .18em</code></td><td>mono labels</td></tr>
+          <tr><td><code>--lh-head</code></td><td><code>1.05</code></td><td>all headings</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="rules">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">What varies, what doesn't</p>
+      <h2>Change several things. Never change these.</h2>
+      <p>Continuity survives a different colour, a different face and a different animation.
+         It does not survive a different skeleton.</p>
+    </div>
+
+    <div class="split">
+      <div class="lock">
+        <p class="hd">Invariant — never per-site</p>
+        <ul>
+          <li><b>The mono eyebrow.</b> 11px, .18em, uppercase, accent-coloured, above every section head.</li>
+          <li><b>Hairline rules only.</b> 1px, no rounded corners, no drop shadows on dark. Depth comes from the surface step.</li>
+          <li><b>Registration corner marks</b> on framed panels — the blueprint tell inherited from the parent.</li>
+          <li><b>Buttons.</b> Display face, uppercase, .06em tracking, 10px/18px, 1px border. Filled = accent, ghost = accent on transparent.</li>
+          <li><b>Layout.</b> 1180px max, 24px gutter, two columns collapse at 980px, nav collapses at 760px.</li>
+          <li><b>The family colour</b> for outbound links, with the &#8599; glyph.</li>
+          <li><b>Body contrast ≥ 12:1</b> and accent ≥ 4.5:1 on the ground. Measured before ship.</li>
+          <li><b>A real 404</b> listing every live destination, including sibling companies.</li>
+          <li><b>No dead links.</b> A host that doesn't resolve is rendered as status text, not an anchor.</li>
+        </ul>
+      </div>
+      <div class="free">
+        <p class="hd">Free — vary these on purpose</p>
+        <ul>
+          <li><b>Ground and surface ramp.</b> Light or dark, warm or cool. The parent is light; the operating companies are not.</li>
+          <li><b>The accent</b>, subject to the three colour gates.</li>
+          <li><b>The display face</b>, as long as it is condensed.</li>
+          <li><b>The body and mono faces.</b></li>
+          <li><b>Type sizing within the scale</b> — a heavier or lighter headline weight, tighter tracking.</li>
+          <li><b>A signature motion.</b> One per property, and it must honour <code>prefers-reduced-motion</code>.</li>
+          <li><b>A dynamic background</b> — canvas field, graph, animated mesh. One per property, behind content, never competing with it.</li>
+          <li><b>Section rhythm and density.</b> A console can be tight; a founder page should breathe.</li>
+          <li><b>Secondary data colours</b> — console properties only, for state. Never in a headline or a button.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="margin:40px 0 12px">Motion and SVG — the traps that already cost time</h3>
+    <ul class="rules">
+      <li><span class="n">01</span><span class="tx"><b>SVG rotation uses SMIL <code>&lt;animateTransform&gt;</code> about <code>0 0</code>.</b>
+        A CSS <code>transform-origin</code> on an SVG child resolves against the view-box, so a
+        "spinning" ring orbits the whole canvas and leaves the screen.</span></li>
+      <li><span class="n">02</span><span class="tx"><b>Never bind a drag to an element the drag re-renders.</b>
+        Track drag state on <code>window</code>. Re-rendering destroys the node under the pointer and silently kills its capture.</span></li>
+      <li><span class="n">03</span><span class="tx"><b>Click versus drag is decided by pointer travel</b> (&lt;4px = click),
+        not by the click event — <code>setPointerCapture</code> suppresses the native one.</span></li>
+      <li><span class="n">04</span><span class="tx"><b>Thin-stroke icons and graph nodes have no hit area.</b>
+        Give every one an invisible circle as its real target, and put <code>pointer-events:none</code> on the visible art.</span></li>
+      <li><span class="n">05</span><span class="tx"><b><code>backdrop-filter</code> creates a stacking context</b>
+        that traps z-indexed children. Portal menus onto <code>&lt;body&gt;</code>.</span></li>
+      <li><span class="n">06</span><span class="tx"><b>Don't size panes with <code>calc(100vh - Npx)</code>.</b>
+        Use a flex column and let the content pane take the slack.</span></li>
+      <li><span class="n">07</span><span class="tx"><b>A <code>&lt;button&gt;</code> centres its content vertically</b>
+        even at <code>display:block</code>, so a short card sits lower than its neighbours. Make it a flex column.</span></li>
+      <li><span class="n">08</span><span class="tx"><b>Every grid needs a breakpoint.</b>
+        A two- or three-column grid with no media query is a horizontal scrollbar on every phone. Measure <code>scrollWidth</code> at 390px before shipping.</span></li>
+    </ul>
+  </div>
+</section>
+
+
+<section class="band" id="motion">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Motion</p>
+      <h2>Six movements. One per property, and the rest are shared.</h2>
+      <p>Every one of these is running on this page — hover where it says to. A property
+         gets <b style="color:var(--fg)">one</b> signature motion. Everything else on this
+         list is shared behaviour that should feel identical everywhere.</p>
+    </div>
+    <div class="demos">
+
+      <div class="demo">
+        <div class="stage">
+          <svg class="d-flow" width="200" height="20" viewBox="0 0 200 20">
+            <line class="flowline" x1="0" y1="10" x2="200" y2="10"/>
+          </svg>
+        </div>
+        <div class="meta">
+          <h4>Dashed flow &mdash; Build's signature</h4>
+          <p>A dash pattern walking along a link. Says "this connection is live" without
+             anything moving position.</p>
+          <p><code>stroke-dasharray:3 9</code> + <code>@keyframes</code> on
+             <code>stroke-dashoffset</code>, 2.6s linear infinite.</p>
+          <p class="why">Cheap: one animated property, no layout, no paint of new geometry.</p>
+        </div>
+      </div>
+
+      <div class="demo">
+        <div class="stage">
+          <svg class="d-ring" viewBox="0 0 120 120">
+            <g transform="translate(60,60)">
+              <g>
+                <animateTransform attributeName="transform" type="rotate"
+                  from="0 0 0" to="360 0 0" dur="24s" repeatCount="indefinite"/>
+                <g stroke="#3d464e" stroke-width="1">
+                  <line x1="0" y1="-46" x2="0" y2="-38"/><line x1="33" y1="-33" x2="27" y2="-27"/>
+                  <line x1="46" y1="0" x2="38" y2="0"/><line x1="33" y1="33" x2="27" y2="27"/>
+                  <line x1="0" y1="46" x2="0" y2="38"/><line x1="-33" y1="33" x2="-27" y2="27"/>
+                  <line x1="-46" y1="0" x2="-38" y2="0"/><line x1="-33" y1="-33" x2="-27" y2="-27"/>
+                </g>
+              </g>
+              <circle r="46" fill="none" stroke="#2b3238"/>
+              <circle r="26" fill="#141a1f" stroke="var(--accent)" stroke-width="1.3"/>
+            </g>
+          </svg>
+        </div>
+        <div class="meta">
+          <h4>Instrument ring &mdash; Principal's signature</h4>
+          <p>Tick marks orbiting a fixed core. Reads as an instrument rather than a loading
+             spinner because it is slow &mdash; 24 seconds a revolution.</p>
+          <p>SMIL <code>&lt;animateTransform type="rotate"&gt;</code> about <code>0 0</code>,
+             inside a translated group.</p>
+          <p class="why"><b style="color:var(--bad)">Never CSS here.</b> A CSS
+             <code>transform-origin</code> on an SVG child resolves against the view-box, so
+             the ring orbits the canvas and leaves the screen.</p>
+        </div>
+      </div>
+
+      <div class="demo">
+        <div class="stage">
+          <svg class="d-pulse" width="120" height="120" viewBox="0 0 120 120">
+            <circle class="halo" cx="60" cy="60" r="9"/>
+            <circle class="core" cx="60" cy="60" r="7"/>
+          </svg>
+        </div>
+        <div class="meta">
+          <h4>Rim pulse &mdash; attention without blinking</h4>
+          <p>An expanding ring that fades. For one node that needs noticing: a new status, a
+             live connection.</p>
+          <p>Animate <code>r</code> and <code>opacity</code>, ease-out, 2.8s. Never more than
+             one on screen.</p>
+          <p class="why">Blinking opacity reads as broken. Expansion reads as a signal.</p>
+        </div>
+      </div>
+
+      <div class="demo">
+        <div class="stage">
+          <div class="d-reveal"><span></span><span></span><span></span></div>
+        </div>
+        <div class="meta">
+          <h4>Reveal &mdash; the only entrance animation</h4>
+          <p>A horizontal scale from the left, staggered 80ms. Used once per section at most,
+             never on body copy.</p>
+          <p><code>transform:scaleX()</code> with <code>transform-origin:left</code>, 700ms.</p>
+          <p class="why">Transform and opacity only &mdash; both composited, so it cannot
+             cause layout thrash on a long page.</p>
+        </div>
+      </div>
+
+      <div class="demo">
+        <div class="stage"><span class="d-link"><a href="#motion">Hover this link</a></span></div>
+        <div class="meta">
+          <h4>Hairline underline &mdash; shared</h4>
+          <p>Links carry a transparent 1px bottom border that takes the accent on hover. The
+             text never moves.</p>
+          <p><code>border-bottom-color</code> transition, 220ms. Not
+             <code>text-decoration</code>, which cannot be transitioned consistently.</p>
+          <p class="why">Reserving the 1px up front is why nothing reflows on hover.</p>
+        </div>
+      </div>
+
+      <div class="demo">
+        <div class="stage">
+          <svg class="d-dim" width="200" height="100" viewBox="0 0 200 100">
+            <circle class="on" cx="100" cy="50" r="9" fill="var(--accent)"/>
+            <circle cx="40" cy="30" r="6" fill="#55606a"/><circle cx="160" cy="30" r="6" fill="#55606a"/>
+            <circle cx="40" cy="74" r="6" fill="#55606a"/><circle cx="160" cy="74" r="6" fill="#55606a"/>
+          </svg>
+        </div>
+        <div class="meta">
+          <h4>Dim the rest &mdash; shared (hover the stage)</h4>
+          <p>Selecting one thing fades everything else to 16% rather than highlighting the
+             selection. How both service maps show focus.</p>
+          <p><code>opacity</code> transition, 250ms, on a shared <code>.dim</code> class.</p>
+          <p class="why">Dimming scales to 25 nodes; highlighting does not &mdash; by node
+             ten everything is "highlighted".</p>
+        </div>
+      </div>
+
+    </div>
+
+    <h3 style="margin:38px 0 12px">Rules</h3>
+    <ul class="rules">
+      <li><span class="n">01</span><span class="tx"><b>One signature per property.</b>
+        Two competing animations on a page means neither is a signature.</span></li>
+      <li><span class="n">02</span><span class="tx"><b>Everything honours <code>prefers-reduced-motion</code>.</b>
+        Not "most things". The media query at the bottom of <code>strongpoint.css</code> zeroes
+        every duration token, and any keyframe animation needs its own override on top.
+        <b style="color:var(--bad)">The media query does not reach SMIL</b> &mdash; an
+        <code>&lt;animateTransform&gt;</code> keeps running for someone who asked for
+        stillness. Call <code>svg.pauseAnimations()</code> from a
+        <code>matchMedia</code> guard; there is one at the bottom of this page to copy.</span></li>
+      <li><span class="n">03</span><span class="tx"><b>Animate transform and opacity.</b>
+        Anything else risks layout or paint on every frame. SVG geometry attributes
+        (<code>r</code>, <code>stroke-dashoffset</code>) are the allowed exception &mdash; they
+        are cheap and they are the whole vocabulary of these diagrams.</span></li>
+      <li><span class="n">04</span><span class="tx"><b>Slow enough to read as instrumentation.</b>
+        Ambient loops run 2.5&ndash;25s. Anything under a second reads as a spinner, which means
+        "wait", which is not what any of these say.</span></li>
+      <li><span class="n">05</span><span class="tx"><b>Interaction feedback is 150&ndash;250ms.</b>
+        Hover, focus and selection. Long enough to see, short enough not to feel laggy.</span></li>
+      <li><span class="n">06</span><span class="tx"><b>No entrance animation on body copy.</b>
+        Text that fades in as you scroll is text you cannot read while it does.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="band tint" id="components">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Page styles</p>
+      <h2>The parts every page is assembled from.</h2>
+      <p>These are rendered live in the playbook's own theme. Swap the tokens and they become
+         any property's.</p>
+    </div>
+    <div class="demos">
+
+      <div class="comp">
+        <h4>Section head</h4>
+        <p class="sp-eyebrow">THE PRACTICE</p>
+        <h2 style="font-size:30px;margin:12px 0 0">Five things we manage.</h2>
+        <p style="color:var(--fg-dim);margin:12px 0 0;font-size:15px">A sentence of context,
+           never more than two.</p>
+        <p class="note">Mono eyebrow, condensed h2, one dim paragraph. This trio opens every
+          section on every property &mdash; it is the single strongest family signal.</p>
+      </div>
+
+      <div class="comp">
+        <h4>Buttons</h4>
+        <a class="sp-btn" href="#components">Start a project</a>
+        <a class="sp-btn ghost" href="#components" style="margin-left:10px">See the map</a>
+        <p class="note">Display face, uppercase, .06em tracking, 10px/18px, 1px border.
+          Filled = accent with the ground as the text colour. Ghost = accent on transparent.
+          No third variant, no rounded corners.</p>
+      </div>
+
+      <div class="comp">
+        <h4>Plate &mdash; the blueprint frame</h4>
+        <div class="sp-plate"><i class="a"></i><i class="b"></i>
+          <div class="sp-eyebrow">01</div>
+          <div style="font-family:var(--display);font-size:20px;margin-top:6px">Feasibility</div>
+          <div style="font-size:14px;color:var(--fg-dim);margin-top:4px">Does it pencil?</div>
+        </div>
+        <p class="note">A 1px box with registration marks on two opposite corners. Inherited
+          from the parent's drawing-sheet look; it is what makes a card feel like a document
+          rather than a tile.</p>
+      </div>
+
+      <div class="comp">
+        <h4>Numbered list</h4>
+        <ul class="sp-list">
+          <li><span class="n">01</span><span>Scope the decision.</span></li>
+          <li><span class="n">02</span><span>Establish the baseline.</span></li>
+          <li><span class="n">03</span><span>Build the risk register.</span></li>
+        </ul>
+        <p class="note">Mono numerals in the accent, hairline rule between rows, no bullets.
+          Used for any ordered process on any property.</p>
+      </div>
+
+      <div class="comp">
+        <h4>Form field</h4>
+        <div class="sp-field">
+          <label for="demo-in">Email</label>
+          <input id="demo-in" type="email" placeholder="you@company.com">
+        </div>
+        <p class="note">Mono uppercase label above the control. Focus is a 1px accent outline
+          plus an accent border &mdash; never the browser default, never a glow.</p>
+      </div>
+
+      <div class="comp">
+        <h4>Outbound link</h4>
+        <p style="font-size:15px;color:var(--fg-dim);margin:0">
+          Construction delivered by
+          <a href="#colour" style="color:var(--family);text-decoration:none;border-bottom:1px solid color-mix(in srgb,#6f8fa8 45%,transparent)">Strongpoint Build &#8599;</a>.
+        </p>
+        <p class="note">Family colour plus the arrow, every time a link leaves the property.
+          This is the one colour shared by all five sites and it is reserved for this job
+          alone.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="band" id="audit">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Audit</p>
+      <h2>Where the live sites stand against this document.</h2>
+      <p>Measured from the deployed stylesheets. The system is new; the sites predate it, so
+         some of this is a to-do list rather than a report card.</p>
+    </div>
+    <div class="scroller">
+      <table>
+        <tr><th>property</th><th>accent contrast</th><th>body contrast</th><th>condensed display</th><th>mono eyebrow</th><th>family link colour</th><th>action</th></tr>
+        <tr>
+          <td><b>Strongpoint</b><br><span style="color:var(--fg-faint)">parent</span></td>
+          <td><span class="pill bad">3.71:1</span><br><code>#5980a6</code></td>
+          <td><span class="pill ok">14.79:1</span></td>
+          <td><span class="pill ok">Barlow Cond.</span></td>
+          <td><span class="pill dim">partial</span></td>
+          <td><span class="pill bad">none</span></td>
+          <td>Adopt <code>#4c7094</code>; add outbound link styling</td>
+        </tr>
+        <tr>
+          <td><b>Principal</b></td>
+          <td><span class="pill ok">6.23:1</span><br><code>#c3893c</code></td>
+          <td><span class="pill ok">15.44:1</span></td>
+          <td><span class="pill ok">Saira Cond.</span></td>
+          <td><span class="pill ok">yes</span></td>
+          <td><span class="pill ok">yes</span></td>
+          <td>Move accent to <code>#8a9c6f</code> — 12&deg; from Build</td>
+        </tr>
+        <tr>
+          <td><b>Build</b></td>
+          <td><span class="pill ok">6.13:1</span><br><code>#e07a3c</code></td>
+          <td><span class="pill ok">15.07:1</span></td>
+          <td><span class="pill ok">Oswald</span></td>
+          <td><span class="pill ok">yes</span></td>
+          <td><span class="pill ok">yes</span></td>
+          <td>None</td>
+        </tr>
+        <tr>
+          <td><b>Dashboard</b><br><span style="color:var(--fg-faint)">AIOS</span></td>
+          <td><span class="pill ok">15.51:1</span><br><code>#7df3ff</code></td>
+          <td><span class="pill ok">16.34:1</span></td>
+          <td><span class="pill warn">Rajdhani</span><br><span style="color:var(--fg-faint);font-size:12px">semi-condensed</span></td>
+          <td><span class="pill ok">yes</span></td>
+          <td><span class="pill ok">yes</span></td>
+          <td>Body face is the display face — split it</td>
+        </tr>
+      </table>
+    </div>
+    <p style="color:var(--fg-faint);font-size:13.5px;max-width:760px;margin-top:16px">
+      The single biggest finding: Principal's brass and Build's orange sit <b style="color:var(--fg)">12&deg;
+      apart</b>. Both are dark-grounded, similarly saturated and similarly light. They were
+      intended to read as distinct companies and they do not. Moving Principal to field olive
+      opens that gap to 61&deg; and costs one token.
+    </p>
+  </div>
+</section>
+
+<section class="band" id="use">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Use it</p>
+      <h2>Two files, in this order.</h2>
+      <p>No build step, no framework, no dependency — the same constraint every property in
+         this group runs under.</p>
+    </div>
+<pre><b>&lt;link rel="stylesheet" href="tokens/strongpoint.css"&gt;</b>
+&lt;link rel="stylesheet" href="tokens/theme-build.css"&gt;</pre>
+    <p style="color:var(--fg-dim);max-width:720px;margin-top:18px">
+      The shared file defines every token with a neutral default. The theme file overrides
+      only what that company is allowed to change — fourteen values for a marketing site,
+      twenty-one for the console, which also carries its state palette.
+    </p>
+    <p style="color:var(--fg-dim);max-width:720px">
+      Sites here inline their CSS to stay single-file, so in practice you copy the
+      <code>:root</code> blocks in rather than linking. That is fine. What is not fine is
+      editing a token value in one site and not here &mdash; this repo is the source, and a
+      drifted site is a bug in the site.
+    </p>
+
+    <h3 style="margin:34px 0 12px">Adding a fifth company</h3>
+    <ul class="rules">
+      <li><span class="n">01</span><span class="tx">Pick a ground. Light is taken by the parent; a second light property needs a reason.</span></li>
+      <li><span class="n">02</span><span class="tx">Pick an accent and run it against all four existing hues. Under 60&deg; from any of them, pick again.</span></li>
+      <li><span class="n">03</span><span class="tx">Check it against the ground. Under 4.5:1, darken or lighten until it clears.</span></li>
+      <li><span class="n">04</span><span class="tx">Pick a condensed display face that is not already in use, and reuse an existing body face — that is the cheapest family tie available.</span></li>
+      <li><span class="n">05</span><span class="tx">Copy a theme file, change the fourteen values, change nothing else.</span></li>
+      <li><span class="n">06</span><span class="tx">Add it to the audit table above, and to every sibling's 404 destination list.</span></li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    Strongpoint design playbook &middot; measured against the live stylesheets, 2026.
+    Source of truth for tokens; a site that has drifted from this document is the thing that is wrong.
+  </div>
+</footer>
+
+
+<script>
+/* prefers-reduced-motion does NOT stop SMIL — the media query only reaches CSS
+   animations, so an <animateTransform> keeps running for someone who asked for
+   stillness. The spec gives SVGSVGElement pauseAnimations() for exactly this.
+   Any property using a SMIL signature needs this guard, not just the playbook. */
+(function () {
+  var q = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)');
+  if (!q) return;
+  function apply() {
+    document.querySelectorAll('svg').forEach(function (s) {
+      if (typeof s.pauseAnimations !== 'function') return;
+      try { q.matches ? s.pauseAnimations() : s.unpauseAnimations(); } catch (e) {}
+    });
+  }
+  apply();
+  q.addEventListener ? q.addEventListener('change', apply) : q.addListener(apply);
+})();
+</script>
+</body>
+</html>
