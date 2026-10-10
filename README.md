@@ -59,7 +59,7 @@ Current state:
 
 | Company | Accent | Hue | Contrast on its ground |
 | --- | --- | --- | --- |
-| Strongpoint | `#4c7094` | 210 | 4.63:1 |
+| Strongpoint | `#486c8f` | 210 | 4.92:1 |
 | Principal | `#8a9c6f` | 84 | 6.33:1 |
 | Build | `#e07a3c` | 23 | 6.13:1 |
 | Advisory | `#7fa968` | 99 | 6.92:1 |
@@ -72,7 +72,7 @@ only exemption, and it is written down rather than left as an accident.
 
 ## Two changes this playbook asks for
 
-- **Parent accent `#5980a6` → `#4c7094`.** The original measures **3.71:1** on
+- **Parent accent `#5980a6` → `#486c8f`.** The original measures **3.71:1** on
   `#f2f2f3` and fails AA for link text.
 - **Principal accent `#c3893c` → `#8a9c6f`.** Brass sat **12°** from Build's
   orange — both dark-grounded, similarly saturated, similarly light. They were

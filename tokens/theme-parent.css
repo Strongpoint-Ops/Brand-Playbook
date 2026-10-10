@@ -13,11 +13,14 @@
   --fg-faint:    #7a7a7d;
 
   /* was #5980a6 — 3.71:1, below AA for link text. Darkened to clear 4.5:1. */
-  --accent:      #4c7094;   /* 4.63:1 on --ground, hue 210 */
+  --accent:      #486c8f;   /* 4.92:1 on --ground, hue 210 */
   --accent-lo:   #2c455d;
   --accent-hi:   #416180;
 
   --display: "Barlow Condensed", "Arial Narrow", system-ui, sans-serif;
   --body:    "Barlow", system-ui, -apple-system, sans-serif;
   --mono:    "IBM Plex Mono", ui-monospace, Menlo, monospace;
+
+  /* 3.04:1 on this ground — the dark-property family colour fails here. */
+  --family:      #4e6c84;   /* 4.94:1 base, 4.55:1 on --surface */
 }

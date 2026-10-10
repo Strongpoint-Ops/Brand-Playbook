@@ -46,6 +46,10 @@
      Never use it as a company accent, never use it for an internal link.   */
   --family:        #6f8fa8;
   --family-hi:     #8fb0c9;
+  /* On a LIGHT ground #6f8fa8 measures 3.04:1 and fails AA for link text.
+     A light-grounded property overrides --family with this darkened variant
+     at the same hue; the meaning and the arrow do not change. */
+  --family-on-light: #4e6c84;
 
   /* ---- INVARIANT: status ------------------------------------------------ */
   --ok:            #7f9b6a;

@@ -43,8 +43,8 @@ Parent     <-> Build         173  ok     Parent     <-> Build      173  ok
 ### 2. The parent's accent fails AA
 
 `#5980a6` on `#f2f2f3` is **3.71:1**. It is used for link text, which needs
-4.5:1; the 3:1 allowance only covers large text. Darkening to `#4c7094` gives
-4.63:1 at the same hue, so nothing about the brand changes.
+4.5:1; the 3:1 allowance only covers large text. Darkening to `#486c8f` gives
+4.92:1 at the same hue, so nothing about the brand changes.
 
 ### 3. The parent has no cross-property link treatment
 

@@ -86,7 +86,7 @@ td code{background:none;border:0;padding:0}
 .prop .meta b{color:var(--pf);font-weight:400}
 
 .t-parent{--pg:#f2f2f3;--pf:#1d1f20;--pfd:#5d5d60;--pl:color-mix(in srgb,#1d1f20 20%,transparent);
-  --pa:#4c7094;--pd:"Barlow Condensed",sans-serif;--pb:"Barlow",sans-serif;--pm:"IBM Plex Mono",monospace}
+  --pa:#486c8f;--pd:"Barlow Condensed",sans-serif;--pb:"Barlow",sans-serif;--pm:"IBM Plex Mono",monospace}
 .t-principal{--pg:#0f1214;--pf:#e7e9ea;--pfd:#9aa3a9;--pl:#2b3238;--pa:#8a9c6f;
   --pd:"Saira Condensed",sans-serif;--pb:"IBM Plex Sans",sans-serif;--pm:"IBM Plex Mono",monospace}
 .t-build{--pg:#10151a;--pf:#e7e9ea;--pfd:#9aa3a9;--pl:#2a333b;--pa:#e07a3c;
@@ -260,9 +260,9 @@ footer{border-top:1px solid var(--line);padding:30px 0 44px;font-size:13px;color
         <p class="spec">The only light-grounded property. The holding company is the one that
            isn't an operating console, and the ground says so before a word is read.</p>
         <div class="swatches"><i style="background:#f2f2f3"></i><i style="background:#e9e9ea"></i>
-          <i style="background:#4c7094"></i><i style="background:#2c455d"></i><i style="background:#1d1f20"></i></div>
+          <i style="background:#486c8f"></i><i style="background:#2c455d"></i><i style="background:#1d1f20"></i></div>
         <a class="btn" href="#colour">Book a call</a>
-        <p class="meta"><b>#4c7094</b> accent &middot; hue 210 &middot; 4.63:1<br>
+        <p class="meta"><b>#486c8f</b> accent &middot; hue 210 &middot; 4.92:1<br>
           <b>Barlow Condensed</b> / Barlow<br>
           <b>light</b> ground &middot; blueprint corner marks</p>
       </div>
@@ -302,7 +302,7 @@ footer{border-top:1px solid var(--line);padding:30px 0 44px;font-size:13px;color
         <p class="eb">Subsidiary &middot; owner-side advisory</p>
         <h3>Advisory</h3>
         <p class="host">consult.strongpointops.com</p>
-        <p class="spec">The sister company to Build. Feasibility, capital planning,
+        <p class="spec">The adjacent operation to Build. Feasibility, capital planning,
            entitlement and white papers &mdash; deliberately still, because the product is a
            document, not a demo.</p>
         <div class="swatches"><i style="background:#0e1316"></i><i style="background:#161c20"></i>
@@ -342,9 +342,14 @@ footer{border-top:1px solid var(--line);padding:30px 0 44px;font-size:13px;color
     </div>
 
     <ul class="rules">
-      <li><span class="n">01</span><span class="tx"><b>At least 4.5:1 against its own ground.</b>
+      <li><span class="n">01</span><span class="tx"><b>At least 4.5:1 against every surface it lands on.</b>
         The accent is used for link text and small labels, so WCAG AA for normal text is the
-        floor — not the 3:1 large-text allowance.</span></li>
+        floor — not the 3:1 large-text allowance. <b style="color:var(--bad)">The ground is not
+        the only surface.</b> The parent's accent cleared 4.63:1 on <code>--ground</code> and
+        failed at 4.27:1 on the tinted band one section below; it is <code>#486c8f</code> now,
+        which clears both. The family colour has the same trap in reverse —
+        <code>#6f8fa8</code> is 5.52:1 on a dark property and <b>3.04:1</b> on the light one,
+        so the parent overrides it with <code>#4e6c84</code> at the same hue.</span></li>
       <li><span class="n">02</span><span class="tx"><b>At least 60&deg; of hue from every sibling accent.</b>
         This is the rule that keeps two dark-grounded sites from reading as one. Compare hue
         against every other company before committing, not just the newest one.</span></li>
@@ -769,7 +774,7 @@ footer{border-top:1px solid var(--line);padding:30px 0 44px;font-size:13px;color
           <td><span class="pill ok">Barlow Cond.</span></td>
           <td><span class="pill dim">partial</span></td>
           <td><span class="pill bad">none</span></td>
-          <td>Adopt <code>#4c7094</code>; add outbound link styling</td>
+          <td>Adopt <code>#486c8f</code>; add outbound link styling</td>
         </tr>
         <tr>
           <td><b>Principal</b></td>
