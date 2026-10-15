@@ -1,0 +1,3 @@
+# Internal design system — not for the index.
+User-agent: *
+Disallow: /
