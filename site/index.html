@@ -13,7 +13,7 @@
 :root{
   --ground:#0f1214; --surface:#171b1f; --surface-2:#1f252a;
   --line:#2b3238; --line-bright:#3d464e;
-  --fg:#e7e9ea; --fg-dim:#9aa3a9; --fg-faint:#6b757c;
+  --fg:#e7e9ea; --fg-dim:#9aa3a9; --fg-faint:#8f999d;
   --accent:#8a9c6f; --accent-lo:#56613f; --accent-hi:#a3b184;
   --family:#6f8fa8; --ok:#7f9b6a; --warn:#d8a340; --bad:#cc6a5c;
   --display:"Saira Condensed","Arial Narrow",system-ui,sans-serif;
@@ -768,13 +768,22 @@ footer{border-top:1px solid var(--line);padding:30px 0 44px;font-size:13px;color
       <table>
         <tr><th>property</th><th>accent contrast</th><th>body contrast</th><th>condensed display</th><th>mono eyebrow</th><th>family link colour</th><th>action</th></tr>
         <tr>
-          <td><b>Strongpoint</b><br><span style="color:var(--fg-faint)">parent</span></td>
-          <td><span class="pill bad">3.71:1</span><br><code>#5980a6</code></td>
+          <td><b>Strongpoint</b><br><span style="color:var(--fg-faint)">parent &middot; apex</span></td>
+          <td><span class="pill ok">4.92:1</span><br><code>#486c8f</code></td>
           <td><span class="pill ok">14.79:1</span></td>
           <td><span class="pill ok">Barlow Cond.</span></td>
-          <td><span class="pill dim">partial</span></td>
-          <td><span class="pill bad">none</span></td>
-          <td>Adopt <code>#486c8f</code>; add outbound link styling</td>
+          <td><span class="pill ok">yes</span></td>
+          <td><span class="pill ok">yes</span></td>
+          <td>None</td>
+        </tr>
+        <tr>
+          <td><b>Advisory</b><br><span style="color:var(--fg-faint)">consult.</span></td>
+          <td><span class="pill ok">6.92:1</span><br><code>#7fa968</code></td>
+          <td><span class="pill ok">15.35:1</span></td>
+          <td><span class="pill ok">Archivo Narrow</span></td>
+          <td><span class="pill ok">yes</span></td>
+          <td><span class="pill ok">yes</span></td>
+          <td>None</td>
         </tr>
         <tr>
           <td><b>Principal</b></td>
@@ -783,7 +792,7 @@ footer{border-top:1px solid var(--line);padding:30px 0 44px;font-size:13px;color
           <td><span class="pill ok">Saira Cond.</span></td>
           <td><span class="pill ok">yes</span></td>
           <td><span class="pill ok">yes</span></td>
-          <td>Move accent to <code>#8a9c6f</code> — 12&deg; from Build</td>
+          <td>Move accent to <code>#8a9c6f</code> — 11&deg; from Build</td>
         </tr>
         <tr>
           <td><b>Build</b></td>
@@ -806,7 +815,7 @@ footer{border-top:1px solid var(--line);padding:30px 0 44px;font-size:13px;color
       </table>
     </div>
     <p style="color:var(--fg-faint);font-size:13.5px;max-width:760px;margin-top:16px">
-      The single biggest finding: Principal's brass and Build's orange sit <b style="color:var(--fg)">12&deg;
+      The single biggest finding: Principal's brass and Build's orange sit <b style="color:var(--fg)">11&deg;
       apart</b>. Both are dark-grounded, similarly saturated and similarly light. They were
       intended to read as distinct companies and they do not. Moving Principal to field olive
       opens that gap to 61&deg; and costs one token.

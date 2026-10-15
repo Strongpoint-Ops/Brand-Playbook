@@ -10,7 +10,7 @@
 
   --fg:          #1d1f20;   /* 14.79:1 on --ground */
   --fg-dim:      #5d5d60;
-  --fg-faint:    #7a7a7d;
+  --fg-faint:    #626265;
 
   /* was #5980a6 — 3.71:1, below AA for link text. Darkened to clear 4.5:1. */
   --accent:      #486c8f;   /* 4.92:1 on --ground, hue 210 */
