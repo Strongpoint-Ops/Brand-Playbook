@@ -35,14 +35,14 @@
      book. Requirements, all three:
        - >= 4.5:1 against --ground  (WCAG AA, and it is used for link text)
        - >= 60 degrees of hue from every sibling company's accent
-       - not the family colour below                                        */
+       - not the family color below                                        */
   --accent:        #6f8fa8;
   --accent-lo:     #47606f;   /* the accent at ~55% value — borders, rules   */
   --accent-hi:     #8fb0c9;   /* the accent lifted — hover only              */
 
-  /* ---- INVARIANT: the family colour -------------------------------------
+  /* ---- INVARIANT: the family color -------------------------------------
      Steel blue means "this link leaves the property you are on". It is the
-     ONE colour shared by all four sites and it is reserved for that job.
+     ONE color shared by all four sites and it is reserved for that job.
      Never use it as a company accent, never use it for an internal link.   */
   --family:        #6f8fa8;
   --family-hi:     #8fb0c9;

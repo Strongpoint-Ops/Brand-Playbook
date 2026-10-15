@@ -45,7 +45,7 @@ layout metrics, and steel blue `#6f8fa8` reserved for links that leave the
 property. Each one owns its ground, its accent, its typefaces and one signature
 motion. Vary several of those at once; never vary the skeleton.
 
-## Colour: three gates, all measurable
+## Color: three gates, all measurable
 
 An accent ships only if it clears all three.
 
@@ -53,7 +53,7 @@ An accent ships only if it clears all three.
    normal text — not the 3:1 large-text allowance.
 2. **≥ 60° of hue from every sibling accent.** This is what stops two
    dark-grounded sites reading as one company.
-3. **Not the family colour.** `#6f8fa8` means "this link leaves the site."
+3. **Not the family color.** `#6f8fa8` means "this link leaves the site."
 
 Current state:
 

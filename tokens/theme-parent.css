@@ -21,6 +21,6 @@
   --body:    "Barlow", system-ui, -apple-system, sans-serif;
   --mono:    "IBM Plex Mono", ui-monospace, Menlo, monospace;
 
-  /* 3.04:1 on this ground — the dark-property family colour fails here. */
+  /* 3.04:1 on this ground — the dark-property family color fails here. */
   --family:      #4e6c84;   /* 4.94:1 base, 4.55:1 on --surface */
 }

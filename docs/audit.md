@@ -5,7 +5,7 @@ is WCAG 2.x relative luminance; hue is HSV degrees.
 
 ## Summary
 
-| Property | Accent | Accent contrast | Body contrast | Display face | Mono eyebrow | Family link colour |
+| Property | Accent | Accent contrast | Body contrast | Display face | Mono eyebrow | Family link color |
 | --- | --- | --- | --- | --- | --- | --- |
 | Strongpoint (parent) | `#5980a6` | **3.71:1 — fails AA** | 14.79:1 | Barlow Condensed ✓ | partial | none |
 | Principal | `#c3893c` | 6.23:1 ✓ | 15.44:1 | Saira Condensed ✓ | ✓ | ✓ |
@@ -48,7 +48,7 @@ Parent     <-> Build         173  ok     Parent     <-> Build      173  ok
 
 ### 3. The parent has no cross-property link treatment
 
-Every other site marks outbound links with the family colour and a `↗`. The
+Every other site marks outbound links with the family color and a `↗`. The
 parent — the one page whose whole job is routing people to the subsidiaries —
 has neither.
 
@@ -68,8 +68,8 @@ reads as a decision rather than an oversight.
 
 These were found while building the sites and are in the live repos:
 
-- A `<button>` centres its content vertically even at `display:block`, so a
-  one-line card sat 11px below its neighbours. Fixed on Principal and Build.
+- A `<button>` centers its content vertically even at `display:block`, so a
+  one-line card sat 11px below its neighbors. Fixed on Principal and Build.
 - `.bio` and `.struct` on Principal had no breakpoints — the page rendered
   679px wide inside a 390px viewport. Fixed.
 - Principal's `.samples` list titles and summaries ran inline instead of

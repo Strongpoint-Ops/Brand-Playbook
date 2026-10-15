@@ -7,7 +7,7 @@
    NOTE: this theme legitimately carries a secondary palette the marketing
    sites do not get. A console has to encode state — a connector's status, an
    agent's health, a stream's type — and one accent cannot carry six meanings.
-   Those extra hues are DATA COLOURS, never brand colours: they may appear in
+   Those extra hues are DATA COLORS, never brand colors: they may appear in
    a chart, a badge or a graph node, and never in a headline or a button. */
 :root {
   --ground:      #04070b;
@@ -28,7 +28,7 @@
   --body:    "Rajdhani", system-ui, sans-serif;
   --mono:    "Share Tech Mono", ui-monospace, monospace;
 
-  /* data colours — state only, never brand */
+  /* data colors — state only, never brand */
   --data-blue:   #8fd3ff;
   --data-green:  #6fd6b0;
   --data-purple: #c58cf0;
